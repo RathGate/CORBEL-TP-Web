@@ -1,0 +1,216 @@
+@import "normalize.css";
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+html {
+    height: 100%;
+    width: 100%;
+    scroll-behavior: smooth;
+}
+body {
+    height: 100%;
+    width: 100%;
+    background-color: #131313;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Ubuntu Mono', monospace;
+    -webkit-text-size-adjust: none;
+}
+.container {
+    position: relative;
+    padding: 15px;
+    width: 100%;
+    max-width: min(100%, 1300px);
+    display: flex;
+    gap: 10px;
+}
+.upper-screen, .lower-screen {
+    width: 50%;
+    aspect-ratio: 256 / 192;
+    position: relative;
+    box-sizing: content-box;
+    border: 2px solid #4c3636;
+}
+.bg-img {
+    display: block;
+    object-fit: cover;
+    max-width: 100%;
+    max-height: 100%;
+    margin-right: -1px;
+}
+@media (max-width: 1000px) {
+    .container {
+        flex-direction: column;
+        justify-content: space-around;
+        max-width: min(100%, 600px);
+    }
+    .upper-screen, .lower-screen {
+        width: auto;
+    }
+}
+
+.infobar-location, .infobar-direction {
+    position: absolute;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    letter-spacing: -1px;
+    font-size: 20px;
+}
+.infobar-location {
+    top: 0;
+    right: 0;
+    height: 13%;
+    width: 70%;
+}
+.infobar-direction {
+    bottom: 0;
+    left: 0;
+    height: 15%;
+    width: 100%;
+    padding-bottom: 3px;
+}
+.text-container {
+    opacity: 0;
+    position: absolute;
+    bottom: 4px;
+    left: 4px;
+    width: calc(100% - 8px);
+    height: 30%;
+    border: 4px solid #150e0c;
+    border-radius: 3px;
+    background-color: #ffffef;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.text-name {
+    position: absolute;
+    top: -15px;
+    left: 3%;
+    background-color: #ffd9ad;
+    font-size: 90%;
+    font-weight: bold;
+    padding: 2px 20px;
+    border-radius: 8px;
+    border: 2px solid #150e0c;
+    z-index: 5;
+}
+
+.footprint {
+    position: absolute;
+    height: 10%;
+    bottom: 1%;
+    right: 1%;
+}
+
+.footprint img {
+    display: block;
+    object-fit: cover;
+    max-width: 100%;
+    max-height: 100%;
+}
+.text-container-corners {
+    height: 100%;
+    width: 100%;
+    position: absolute;
+}
+.upper-corners::before, .upper-corners::after, .lower-corners::before, .lower-corners::after {
+    content: "";
+    position: absolute;
+    height: 4px;
+    width: 4px;
+    background-color: #150e0c;
+    z-index: 6;
+}
+.upper-corners::before {
+    top: 0;
+    left: 0;
+}
+.upper-corners::after {
+    top: 0;
+    right: 0;
+}
+.lower-corners::before {
+    bottom: 0;
+    left: 0;
+}
+.lower-corners::after {
+    bottom: 0;
+    right: 0;
+}
+
+.sound-controls {
+    position: absolute;
+    top: 0;
+    right: 0;
+    display: flex;
+    margin: 1%;
+    user-select: none;
+}
+.sound-controls .material-symbols-outlined {
+    font-size: 40px;
+}
+.material-symbols-outlined {
+    cursor: pointer;
+}
+span {
+    text-shadow: -1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff, 1px 1px 0 #fff;
+}
+.no-sound {
+    opacity: 0.5;
+    cursor: default;
+}
+#text {
+    z-index: 10;
+    position: relative;
+}
+.text-box {
+    width: calc(100% - 12px);
+    height: calc(100% - 12px);
+    border: 2px solid #f8f0e0;
+    background-image: url("../img/motif.png");
+    background-repeat: round;
+}
+
+.waiting-screen {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    z-index: 99;
+    background-color: #131313cd;
+}
+
+.blurred {
+    filter: blur(2px) grayscale(0.5);
+}
+
+#directions {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+}
+    
+.direction-arrow {
+    position: absolute;
+    width: 8%;
+    aspect-ratio: 1/1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
+.direction-arrow img {
+    max-height: 100%;
+    max-width: 100%;
+}
