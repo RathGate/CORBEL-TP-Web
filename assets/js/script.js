@@ -28,11 +28,11 @@ window.onload = () => {
     $("#footprint").click(function(e) {
         toggleDirArrows()
     })
-    if (isChrome) {
-        soundCheck()
-    } else {
-        launchZoneScript()
-    }
+    // if (isChrome) {
+    //     soundCheck()
+    // } else {
+    //     launchZoneScript()
+    // }
 }
 
 function reflectMusicState() {

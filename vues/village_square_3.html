@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../assets/css/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <link href="https://fonts.googleapis.com/css2?family=Ubuntu+Mono&display=swap" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <title>Village Square | Where's the Cat ?</title>
+</head>
+<body>
+    <audio id="bgm-audio" src="../assets/bgm/bgm_0.mp3" type="audio/mpeg" muted></audio>
+    <div id="container" class="container horizontal">
+        <div class="upper-screen">
+            <img class="bg-img" src="../assets/img/maps/map_0.png" alt="map view">
+            <div class="infobar-location"><span>VILLAGE SQUARE</span></div>
+            <div class="infobar-direction"><span><!-- PLACEHOLDER--></span></div>
+        </div>
+        <div class="lower-screen">
+            <img class="bg-img" src="../assets/img/bg/bg_3.png" alt="village view">
+            <a href="granny_s_room_4.html"><div class="dev-room"></div></a>
+            <div id="directions">
+                <a href="../index.html">
+                    <div class="dir-arrow" style="bottom: 0%; left: 45%;">
+                        <img src="../assets/img/arrows/dir_3.png" alt="Direction: to the Entrance">
+                    </div>
+                </a>
+                <a href="park_road_5.html">
+                    <div class="dir-arrow" style="top: 45%; left: 2%;">
+                        <img src="../assets/img/arrows/dir_4.png" alt="Direction: to the Park Road">
+                    </div>
+                </a>
+                <a href="manor_road_13.html">
+                    <div class="dir-arrow" style="top: 45%; right: 2%;">
+                        <img src="../assets/img/arrows/dir_2.png" alt="Direction: to the Manor Road">
+                    </div>
+                </a>
+                <a href="fork_in_the_road_8.html">
+                    <div class="dir-arrow" style="bottom: 17%; left: 42%;">
+                        <img src="../assets/img/arrows/dir_0.png" alt="Direction: to the Fork in the Road">
+                    </div>
+                </a>
+            </div>
+            <div id="footprint" class="footprint"><img src="../assets/img/footprint.png" alt=""></div>
+            <div class="sound-controls"><span class="material-symbols-outlined" id="volume">volume_up</span></div>
+            <!-- <div class="text-container">
+                <div class="text-name"><span id="char-name">PLACEHOLDER</span></div>
+                <div class="text-container-corners">
+                    <div class="upper-corners"></div>
+                    <div class="lower-corners"></div>
+                </div>
+                <div class="text-box"><span id="text-box">PLACEHOLDER</span></div>
+            </div> -->
+        </div>
+    </div>
+    <script type="module" src="../assets/js/script.js"></script>
+</body>
+</html>
