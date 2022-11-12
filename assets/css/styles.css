@@ -5,6 +5,16 @@
     margin: 0;
     padding: 0;
 }
+
+.text-big {
+    font-size: 26px;
+}
+.text-small {
+    font-size: 24px;
+}
+.text-medium {
+    font-size: 22px;
+}
 html {
     height: 100%;
     width: 100%;
@@ -25,6 +35,7 @@ body {
     padding: 15px;
     width: 100%;
     max-width: min(100%, 1300px);
+    min-width: 300px;
     display: flex;
     gap: 10px;
 }
@@ -62,7 +73,6 @@ body {
     align-items: center;
     justify-content: center;
     letter-spacing: -1px;
-    font-size: 20px;
 }
 .infobar-location {
     top: 0;
@@ -75,7 +85,6 @@ body {
     left: 0;
     height: 15%;
     width: 100%;
-    padding-bottom: 3px;
 }
 .text-container {
     opacity: 0;
@@ -90,16 +99,16 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
+    padding: 1%;
 }
 
 .text-name {
     position: absolute;
-    top: -15px;
-    left: 3%;
+    top: -15%;
+    left: 1%;
     background-color: #ffd9ad;
-    font-size: 90%;
     font-weight: bold;
-    padding: 2px 20px;
+    padding: 0 20px;
     border-radius: 8px;
     border: 2px solid #150e0c;
     z-index: 5;
@@ -174,6 +183,7 @@ span {
     position: relative;
 }
 .text-box {
+    padding-top: 1%;
     width: calc(100% - 12px);
     height: calc(100% - 12px);
     border: 2px solid #f8f0e0;
@@ -201,6 +211,7 @@ span {
     left: 0;
     height: 100%;
     width: 100%;
+    animation: arrow-animation 0.75s alternate-reverse infinite;
 }
     
 .dir-arrow {
@@ -210,8 +221,9 @@ span {
     display: flex;
     align-items: center;
     justify-content: center;
-    animation: arrow-animation 0.75s alternate-reverse infinite;
-
+}
+.position {
+    width: 7%;
 }
 .dir-arrow img {
     max-height: 100%;

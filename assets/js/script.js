@@ -28,6 +28,7 @@ window.onload = () => {
     $("#footprint").click(function(e) {
         toggleDirArrows()
     })
+    resizeFonts($('#upper-screen').width())
     // if (isChrome) {
     //     soundCheck()
     // } else {
@@ -105,3 +106,20 @@ function toggleDirArrows() {
 function switchPages(page) {
     document.location.href = page;
 }
+
+$( window ).resize(function() {
+    resizeFonts($('#upper-screen').width());
+  });
+
+  function resizeFonts(currSize) {
+    [...document.getElementsByClassName("text-big")].forEach(element => {
+        element.style.fontSize = `${26 * (currSize/624)}px`
+    });
+    [...document.getElementsByClassName("text-small")].forEach(element => {
+        element.style.fontSize = `${24 * (currSize/ 624)}px`;
+        element.style.lineHeight = `${0.9 + (0.25 * (currSize/ 624))}`
+    });
+    [...document.getElementsByClassName("text-medium")].forEach(element => {
+        element.style.fontSize = `${22 * (currSize/ 624)}px`;
+    })
+  }
