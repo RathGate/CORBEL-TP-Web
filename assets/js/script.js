@@ -96,30 +96,22 @@ function generateDirArrows() {
 }
 
 function toggleDirArrows() {
-    let dirDiv = document.getElementById("directions");
-    if (dirDiv.childElementCount == 0) {
-        generateDirArrows()
-    } else {
-        dirDiv.innerHTML = "";
-    }
-}
-function switchPages(page) {
-    document.location.href = page;
+    document.getElementById("directions").classList.toggle("visible");
 }
 
 $( window ).resize(function() {
     resizeFonts($('#upper-screen').width());
   });
 
-  function resizeFonts(currSize) {
+function resizeFonts(currSize) {
     [...document.getElementsByClassName("text-big")].forEach(element => {
-        element.style.fontSize = `${26 * (currSize/624)}px`
+            element.style.fontSize = `${26 * (currSize/624)}px`
     });
     [...document.getElementsByClassName("text-small")].forEach(element => {
-        element.style.fontSize = `${24 * (currSize/ 624)}px`;
-        element.style.lineHeight = `${0.9 + (0.25 * (currSize/ 624))}`
+            element.style.fontSize = `${24 * (currSize/ 624)}px`;
+            element.style.lineHeight = `${0.9 + (0.25 * (currSize/ 624))}`
     });
     [...document.getElementsByClassName("text-medium")].forEach(element => {
-        element.style.fontSize = `${22 * (currSize/ 624)}px`;
+            element.style.fontSize = `${22 * (currSize/ 624)}px`;
     })
-  }
+    }
