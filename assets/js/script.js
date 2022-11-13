@@ -135,7 +135,7 @@ let textLines = {
     "...",
     "What was I saying ?",
     "Anyway, have you seen the lil' cat before the amusement park's gates ? That's Claudia. She's fat, you should see her."],
-    4: ["Hey, stranger ! Don't you think this village is curiously empty ? Where did all the villagers go ?",
+    4: ["Hey, stranger ! How did you find my house ? Have you already come here, in another life?",
     "You are gazing at the beautiful and clairvoyant Mamie Mystère, guide to the puzzled puzzlers!",
     "This is my shack, though the creator wanted it to be a dev room. I was supposed to give you the answers you would seek to solve the game.",
     "But she experienced anxiety issues, that's why everything here seems so empty. I hope you're still having some fun testing it out!",
