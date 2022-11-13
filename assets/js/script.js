@@ -1,4 +1,135 @@
 const CURRENTZONE = setCurrentZone();
+
+function loadScreen() {
+    resizeFonts($('#upper-screen').width())
+    setSoundSystem()
+    
+    $("#footprint").click(function(e) {
+        toggleDirArrows()
+    })
+    
+    if (npcZones.includes(parseInt(CURRENTZONE))) {
+        if (CURRENTZONE == 4) {
+            setTimeout(function() {
+                document.querySelector(".text-container").classList.toggle("hidden");
+                document.querySelector(".text-char").classList.toggle("hidden");
+                readText(textLines[CURRENTZONE]);
+            }, 1500)
+        } else {
+            document.querySelector(".text-container").classList.toggle("hidden");
+            document.querySelector(".text-char").classList.toggle("hidden");
+            readText(textLines[CURRENTZONE]);
+        }
+        
+    } else {
+        closeTextBox()
+    }
+}
+
+// Defines current zone based on page URL.
+function setCurrentZone() {
+    var currentUrl = window.location.href;
+    if (/\/CORBEL-TP-Web\/(index\.html)?$/.test(window.location.href)) {
+        return 0;
+    } else {
+        let match = currentUrl.match(/\/vues\/.+_(\d+).html/);
+        return match.length == 0 ? -1 : match[1]
+    }
+};
+
+// Base sound system setting on page launch.
+function setSoundSystem() {
+    document.getElementById("bgm-audio").muted = false;
+    if (reflectMusicState()) {
+        document.getElementById("bgm-audio").volume = 0.75;
+        document.getElementById("play").onclick = togglePlay;
+        document.getElementById("volume").onclick = toggleVolume;
+    }
+};
+
+// Ajusts sound icons based on audio element's state.
+function reflectMusicState() {
+    let audioEl = document.getElementById("bgm-audio");
+    let volumeEl = document.getElementById("volume"); 
+    let playEl = document.getElementById("play");
+
+    if (audioEl == null) {
+        volumeEl.classList.add("no-sound"); playEl.classList.add("no-sound");
+        volumeEl.innerHTML = "volume_off"; volumeEl.innerHTML = "pause";
+        return false
+    } else {
+        volumeEl.innerHTML = audioEl.muted ? "volume_off" : "volume_up";
+        playEl.innerHTML = !audioEl.paused ? "pause" : "play_arrow";
+        return true
+    }
+}
+
+// Toggles both volume-up/mute pause/play states.
+function toggleVolume() {
+    console.log("hhh")
+    let audioEl = document.getElementById("bgm-audio");
+    audioEl.muted = !audioEl.muted;
+    reflectMusicState()
+}
+function togglePlay() {
+    document.querySelector(".sound-controls").classList.remove("waiting");
+    let audioEl = document.getElementById("bgm-audio");
+    audioEl.paused ? audioEl.play() : audioEl.pause()
+    reflectMusicState();
+}
+
+// Displays or not the direction arrows.
+function toggleDirArrows() {
+    document.getElementById("directions").classList.toggle("visible");
+}
+
+// CSS cannot set font size based on the screen size.
+// Therefore, function to resize the main font-sizes based on window size. 
+$( window ).resize(function() {
+    resizeFonts($('#upper-screen').width());
+  });
+function resizeFonts(currSize) {
+    [...document.getElementsByClassName("text-big")].forEach(element => {
+            element.style.fontSize = `${26 * (currSize/624)}px`
+    });
+    [...document.getElementsByClassName("text-small")].forEach(element => {
+            element.style.fontSize = `${24 * (currSize/ 624)}px`;
+            element.style.lineHeight = `${0.9 + (0.25 * (currSize/ 624))}`
+    });
+    [...document.getElementsByClassName("text-medium")].forEach(element => {
+            element.style.fontSize = `${22 * (currSize/ 624)}px`;
+    })
+};
+
+// Freezes the screen until the users clicks on the div.
+function waitForClick() {
+    return new Promise(resolve => {
+        $(".text-container").click(function(e) {
+            resolve("resolved")
+        })
+    })
+};
+// 
+async function readText(textArr) {
+    if (textArr.length != 0) {
+        for (let i = 0; i < textArr.length; i++) {
+            document.getElementById("text-box").innerText = textArr[i];
+            if (i < textArr.length-1) {
+                await waitForClick();
+            }
+        }
+        await closeTextBox()
+        document.querySelector(".text-char").classList.toggle("hidden");
+    }
+}
+
+async function closeTextBox() {
+    await waitForClick();
+    document.querySelector(".footprint").classList.toggle("hidden");
+    document.querySelector(".text-container").classList.toggle("hidden");
+    document.querySelector(".text-name").classList.remove("hidden");
+}
+
 let textLines = {
     3: ["Oh, someone new here! Not a lot of people come here when there's no project red around...",
     "...",
@@ -24,145 +155,9 @@ let textLines = {
     "I... didn't expect to see someone here. Don't tell anyone that you saw me.",
     "Please."],
     14: ["Do you need some help to cross the river ? I'm the one in charge here.",
-    "If you're looking for the dog, don't worry. Lady Dahlia found him, he's right there waiting for you."]
-
-}
-
-resizeFonts($('#upper-screen').width())
-setSoundSystem()
-
-
-if (CURRENTZONE == 3 || CURRENTZONE == 4 || CURRENTZONE == 7 || CURRENTZONE == 10 || CURRENTZONE == 12 || CURRENTZONE == 14 || CURRENTZONE == 6) {
-    if (CURRENTZONE == 4) {
-        setTimeout(function() {
-            document.querySelector(".text-container").classList.toggle("hidden");
-            document.querySelector(".text-char").classList.toggle("hidden");
-            readText(textLines[CURRENTZONE]);
-        }, 1500)
-    } else {
-        document.querySelector(".text-container").classList.toggle("hidden");
-        document.querySelector(".text-char").classList.toggle("hidden");
-        readText(textLines[CURRENTZONE]);
-    }
-    
-} else {
-    closeTextBox()
-}
-
-
-$("#footprint").click(function(e) {
-    toggleDirArrows()
-})
-
-function setCurrentZone() {
-    var currentUrl = window.location.href;
-    if (/\/CORBEL-TP-Web\/(index\.html)?$/.test(window.location.href)) {
-        console.log("sa marhc")
-        return 0;
-    } else {
-        let match = currentUrl.match(/\/vues\/.+_(\d+).html/);
-        return match.length == 0 ? -1 : match[1]
-    }
-};
-function setSoundSystem() {
-    document.getElementById("bgm-audio").muted = false;
-    if (reflectMusicState()) {
-        document.getElementById("bgm-audio").volume = 0.75;
-        document.getElementById("play").onclick = togglePlay;
-        document.getElementById("volume").onclick = toggleVolume;
-    }
+    "If you're looking for the dog, don't worry. Lady Dahlia found him, he's right there waiting for you."],
 };
 
-function reflectMusicState() {
-    let audioEl = document.getElementById("bgm-audio");
-    let volumeEl = document.getElementById("volume"); 
-    let playEl = document.getElementById("play");
-
-    if (audioEl == null) {
-        volumeEl.classList.add("no-sound"); playEl.classList.add("no-sound");
-        volumeEl.innerHTML = "volume_off"; volumeEl.innerHTML = "pause";
-        return false
-    } else {
-        volumeEl.innerHTML = audioEl.muted ? "volume_off" : "volume_up";
-        playEl.innerHTML = !audioEl.paused ? "pause" : "play_arrow";
-        return true
-    }
-}
-
-function toggleVolume() {
-    console.log("hhh")
-    let audioEl = document.getElementById("bgm-audio");
-    audioEl.muted = !audioEl.muted;
-    reflectMusicState()
-}
-function togglePlay() {
-    document.querySelector(".sound-controls").classList.remove("waiting");
-    let audioEl = document.getElementById("bgm-audio");
-    audioEl.paused ? audioEl.play() : audioEl.pause()
-    reflectMusicState();
-}
-
-async function soundCheck() {
-    let upper = document.querySelector(".upper-screen"), lower = document.querySelector(".lower-screen");
-    upper.classList.add("blurred"); lower.classList.add("blurred")
-    
-    let waitingScreen = document.createElement("div"); waitingScreen.classList.add("waiting-screen");
-    document.getElementById("container").insertBefore(waitingScreen, document.getElementById("container").firstChild)
-    await waitForClick();
-
-    upper.classList.remove("blurred"); lower.classList.remove("blurred");
-    waitingScreen.remove()
-    document.getElementById("bgm-audio").play(); document.getElementById("bgm-audio").muted = false;
-    launchZoneScript();
-}
-
-function waitForClick() {
-    return new Promise(resolve => {
-        $(".text-container").click(function(e) {
-            resolve("resolved")
-        })
-    })
-}
-
-function toggleDirArrows() {
-    document.getElementById("directions").classList.toggle("visible");
-}
-
-$( window ).resize(function() {
-    resizeFonts($('#upper-screen').width());
-  });
-
-function resizeFonts(currSize) {
-    [...document.getElementsByClassName("text-big")].forEach(element => {
-            element.style.fontSize = `${26 * (currSize/624)}px`
-    });
-    [...document.getElementsByClassName("text-small")].forEach(element => {
-            element.style.fontSize = `${24 * (currSize/ 624)}px`;
-            element.style.lineHeight = `${0.9 + (0.25 * (currSize/ 624))}`
-    });
-    [...document.getElementsByClassName("text-medium")].forEach(element => {
-            element.style.fontSize = `${22 * (currSize/ 624)}px`;
-    })
-}
-
-async function readText(textArr) {
-    if (textArr.length != 0) {
-        for (let i = 0; i < textArr.length; i++) {
-            document.getElementById("text-box").innerText = textArr[i];
-            if (i < textArr.length-1) {
-                await waitForClick();
-            }
-        }
-        await closeTextBox()
-        document.querySelector(".text-char").classList.toggle("hidden");
-    }
-}
-
-async function closeTextBox() {
-    await waitForClick();
-    document.querySelector(".footprint").classList.toggle("hidden");
-    document.querySelector(".text-container").classList.toggle("hidden");
-    document.querySelector(".text-name").classList.remove("hidden");
-}
-
-
+var npcZones = [3, 4, 6, 7, 10, 12, 14];
+console.log()
+loadScreen()
