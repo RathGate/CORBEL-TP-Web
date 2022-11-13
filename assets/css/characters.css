@@ -58,3 +58,18 @@
     top: 25%;
     height: 90%;
 }
+.orange {
+    top: 31%;
+    width: 20%;
+    left: 40%;
+    animation: spinnin .75s infinite linear;
+}
+
+@keyframes spinnin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
