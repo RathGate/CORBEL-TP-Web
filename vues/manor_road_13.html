@@ -13,13 +13,13 @@
     <title>Manor Road | Where's the Cat ?</title>
 </head>
 <body>
-    <audio id="bgm-audio" src="../assets/bgm/bgm_0.mp3" type="audio/mpeg" muted></audio>
+    <audio id="bgm-audio" src="../assets/bgm/bgm_0.mp3" type="audio/mpeg" loop muted></audio>
     <div id="container" class="container horizontal">
         <div id="upper-screen" class="upper-screen">
             <img class="bg-img" src="../assets/img/maps/map_13.png" alt="map view">
             <div class="dir-arrow position" style="top: 69%; left: 42%;"><img src="../assets/img/map_position.png" alt="Map cursor"></div>
             <div class="infobar-location text-big"><span>MANOR ROAD</span></div>
-            <div class="infobar-direction text-big"><span>Head for Reinhold Manor!</span></div>
+            <div class="infobar-direction text-big"><span>Find the cat!</span></div>
         </div>
         <div id="lower-screen" class="lower-screen">
             <img class="bg-img" src="../assets/img/bg/bg_13.png" alt="village view">
@@ -36,7 +36,10 @@
                 </a>
             </div>
             <div id="footprint" class="footprint"><img src="../assets/img/footprint.png" alt=""></div>
-            <div class="sound-controls"><span class="material-symbols-outlined" id="volume">volume_up</span></div>
+            <div class="sound-controls waiting">
+                <span class="material-symbols-outlined" id="play">play_arrow</span>
+                <span class="material-symbols-outlined" id="volume">volume_up</span>
+            </div>
             <!-- <div class="text-container">
                 <div class="text-name text-medium"><span id="char-name">Pouet</span></div>
                 <div class="text-container-corners">

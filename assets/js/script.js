@@ -1,28 +1,29 @@
-import GameData from '../data/gamedata.json' assert { type: 'json' };
-const currentZone = 0;
+var playerData;
+ 
+function setCurrentZone() {
+    var currentUrl = window.location.href;
+    if (/\/CORBEL-TP-Web\/(index\.html)?$/.test(window.location.href)) {
+        console.log("sa marhc")
+        return 0;
+    } else {
+        let match = currentUrl.match(/\/vues\/.+_(\d+).html/);
+        return match.length == 0 ? -1 : match[1]
+    }
+};
 
-const isChrome = () => {
-    var isChromium = window.chrome;
-    var winNav = window.navigator;
-    var vendorName = winNav.vendor;
-    var isOpera = typeof window.opr !== "undefined";
-    var isIEedge = winNav.userAgent.indexOf("Edg") > -1;
-    var isIOSChrome = winNav.userAgent.match("CriOS");
-
-    if (isChromium !== null &&
-    typeof isChromium !== "undefined" &&
-    vendorName === "Google Inc." &&
-    isOpera === false &&
-    isIEedge === false) {
-        return true;
-    } 
-    return false;
+function setSoundSystem() {
+    document.getElementById("bgm-audio").muted = false;
+    reflectMusicState()
 }
-window.onload = () => {
 
-    // document.getElementById("text-box").innerHTML = "pouet pouet je suis un potit blagueur";
+
+window.onload = () => {
+    let currentZone = setCurrentZone();
+    setSoundSystem()
+    // toggleVolume()
     if (reflectMusicState()) {
         document.getElementById("bgm-audio").volume = 0.75;
+        document.getElementById("play").onclick = togglePlay;
         document.getElementById("volume").onclick = toggleVolume;
     }
     $("#footprint").click(function(e) {
@@ -39,13 +40,15 @@ window.onload = () => {
 function reflectMusicState() {
     let audioEl = document.getElementById("bgm-audio");
     let volumeEl = document.getElementById("volume"); 
+    let playEl = document.getElementById("play");
 
     if (audioEl == null) {
-        volumeEl.classList.add("no-sound"); 
-        volumeEl.innerHTML = "volume_off";
+        volumeEl.classList.add("no-sound"); playEl.classList.add("no-sound");
+        volumeEl.innerHTML = "volume_off"; volumeEl.innerHTML = "pause";
         return false
     } else {
-        volumeEl.innerHTML = audioEl.muted ? "volume_up" : "volume_off";
+        volumeEl.innerHTML = audioEl.muted ? "volume_off" : "volume_up";
+        playEl.innerHTML = !audioEl.paused ? "pause" : "play_arrow";
         return true
     }
 }
@@ -55,7 +58,13 @@ function toggleVolume() {
     audioEl.muted = !audioEl.muted;
     reflectMusicState()
 }
+function togglePlay() {
+    document.querySelector(".sound-controls").classList.remove("waiting");
 
+    let audioEl = document.getElementById("bgm-audio");
+    audioEl.paused ? audioEl.play() : audioEl.pause()
+    reflectMusicState();
+}
 function launchZoneScript() {
     console.log("bonjour")
 }
@@ -82,18 +91,6 @@ function waitForClick() {
     })
 }
 
-function generateDirArrows() { 
-    GameData.zones[currentZone].directions.forEach(direction => {
-        let newEl = document.createElement("div"); newEl.classList.add("direction-arrow");
-        $(newEl).click(function(e) {
-            switchPages(`page_${direction.id}.html`)
-        });
-        newEl.style.top = `${direction.coordinates[0]}%`; newEl.style.left = `${direction.coordinates[1]}%`
-        newEl.innerHTML = `<img src="assets/img/arrows/${direction.arrow_type}.png" alt="direction arrow">`
-        document.getElementById("directions").appendChild(newEl)
-       }
-    )
-}
 
 function toggleDirArrows() {
     document.getElementById("directions").classList.toggle("visible");
