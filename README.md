@@ -1,4 +1,4 @@
-# TP Web
+# Javascript Layton
 
 Realised by Marianne Corbel as part of an HTML/CSS course from Ynov Aix.
 
